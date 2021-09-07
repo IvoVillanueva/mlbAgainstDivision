@@ -7,8 +7,6 @@ library(rvest)
 library(mlbstatsR)
 library(ggtext)
 library(ggimage)
-library(here)
-library(janitor)
 library(stringr)
 
 theme_ivo <- function() {
