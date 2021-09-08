@@ -30,7 +30,6 @@ d <- d %>%
   select(tm = name, liga, division) %>%
   mutate(
     division = str_extract(division,'\\w+$'),
-    division = str_squish(division),
     liga = case_when(
       liga == "NL" ~ "National",
       liga == "AL" ~ "American",
