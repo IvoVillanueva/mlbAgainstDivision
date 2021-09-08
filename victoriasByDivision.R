@@ -7,6 +7,8 @@ library(rvest)
 library(mlbstatsR)
 library(ggtext)
 library(ggimage)
+library(here)
+library(janitor)
 library(stringr)
 
 theme_ivo <- function() {
@@ -27,7 +29,7 @@ d <- get_mlb_teams()
 d <- d %>%
   select(tm = name, liga, division) %>%
   mutate(
-    division = str_replace_all(division, c("NL" = "", "AL" = "")),
+    division = str_extract(division,'\\w+$'),
     division = str_squish(division),
     liga = case_when(
       liga == "NL" ~ "National",
@@ -60,7 +62,7 @@ p <- df %>%
   facet_wrap(~ liga + division, scales = "free") +
   coord_cartesian(clip = "off") +
   scale_x_continuous(limits = c(17.5, 50.5), breaks = seq(18, 50, 5), position = "top") +
-  scale_y_continuous(limits = c(14.5, 45.5), breaks = seq(15, 45, 5)) +
+  scale_y_continuous(limits = c(14.5, max(df$w)), breaks = seq(15,max(df$w), 5)) +
   theme_ivo() +
   theme(
     strip.placement = "outside",
